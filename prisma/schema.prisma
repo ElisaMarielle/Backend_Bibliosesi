@@ -3,19 +3,19 @@ generator client {
 }
 
 datasource db {
-  provider  = "postgresql"
+  provider = "postgresql"
 }
 
 model Usuarios {
-  id            Int           @id @default(autoincrement())
-  nome          String
-  email         String        @unique
-  rm            Int           @unique
-  senha         String
-  funcao        Funcao
-  emprestimos   Emprestimos[]
-  fila          Fila[]
-  feedbacks     Feedbacks[]
+  id          Int           @id @default(autoincrement())
+  nome        String
+  email       String        @unique
+  rm          Int           @unique
+  senha       String
+  funcao      Funcao
+  emprestimos Emprestimos[]
+  fila        Fila[]
+  feedbacks   Feedbacks[]
 }
 
 model Livros {
