@@ -6,7 +6,8 @@
     "dev": "node --watch server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "build": "prisma generate"
+    "build": "prisma generate",
+    "postinstall": "prisma generate"
   },
   "keywords": [],
   "author": "",
