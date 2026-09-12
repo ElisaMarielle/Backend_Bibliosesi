@@ -21,6 +21,7 @@
     "express": "^5.2.1",
     "jsonwebtoken": "^9.0.3",
     "pg": "^8.23.0",
+    "postgres": "^3.4.9",
     "prisma": "7.10.0"
   }
 }

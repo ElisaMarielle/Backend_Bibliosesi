@@ -1,7 +1,7 @@
 {
   "_type": "export",
   "__export_format": 4,
-  "__export_date": "2026-03-25T12:39:38.884Z",
+  "__export_date": "2026-09-12T02:28:34.537Z",
   "__export_source": "backend-aula",
   "resources": [
     {
@@ -10,15 +10,15 @@
       "name": "Backend Aula"
     },
     {
-      "_id": "fld_bibliosesi",
+      "_id": "fld_Backend_Bibliosesi",
       "_type": "request_group",
       "parentId": "wrk_backend",
-      "name": "bibliosesi"
+      "name": "Backend_Bibliosesi"
     },
     {
       "_id": "fld_Usuarios",
       "_type": "request_group",
-      "parentId": "fld_bibliosesi",
+      "parentId": "fld_Backend_Bibliosesi",
       "name": "Usuarios"
     },
     {
@@ -64,7 +64,7 @@
       "url": "http://localhost:3000/usuarios/cadastrar",
       "body": {
         "mimeType": "application/json",
-        "text": "{\n  \"nome\": \"string\",\n  \"email\": \"string\",\n  \"rm\": 0,\n  \"senha\": \"string\",\n  \"serie_escolar\": \"string\"\n}"
+        "text": "{\n  \"nome\": \"string\",\n  \"email\": \"string\",\n  \"rm\": 0,\n  \"senha\": \"string\"\n}"
       }
     },
     {
@@ -82,7 +82,7 @@
       "url": "http://localhost:3000/usuarios/atualizar/:id",
       "body": {
         "mimeType": "application/json",
-        "text": "{\n  \"nome\": \"string\",\n  \"email\": \"string\",\n  \"rm\": 0,\n  \"senha\": \"string\",\n  \"serie_escolar\": \"string\"\n}"
+        "text": "{\n  \"nome\": \"string\",\n  \"email\": \"string\",\n  \"rm\": 0,\n  \"senha\": \"string\"\n}"
       }
     },
     {
@@ -102,7 +102,7 @@
     {
       "_id": "fld_Livros",
       "_type": "request_group",
-      "parentId": "fld_bibliosesi",
+      "parentId": "fld_Backend_Bibliosesi",
       "name": "Livros"
     },
     {
@@ -148,7 +148,7 @@
       "url": "http://localhost:3000/livros/cadastrar",
       "body": {
         "mimeType": "application/json",
-        "text": "{\n  \"titulo\": \"string\",\n  \"autor\": \"string\",\n  \"genero\": \"string\",\n  \"publicacao\": \"2026-03-25T12:39:38.874Z\",\n  \"quantidade\": 0\n}"
+        "text": "{\n  \"titulo\": \"string\",\n  \"descricao\": \"string\",\n  \"autor\": \"string\",\n  \"genero\": \"string\",\n  \"publicacao\": \"string\",\n  \"editora\": \"string\",\n  \"imagem\": \"string\"\n}"
       }
     },
     {
@@ -166,7 +166,7 @@
       "url": "http://localhost:3000/livros/atualizar/:id",
       "body": {
         "mimeType": "application/json",
-        "text": "{\n  \"titulo\": \"string\",\n  \"autor\": \"string\",\n  \"genero\": \"string\",\n  \"publicacao\": \"2026-03-25T12:39:38.874Z\",\n  \"quantidade\": 0\n}"
+        "text": "{\n  \"titulo\": \"string\",\n  \"descricao\": \"string\",\n  \"autor\": \"string\",\n  \"genero\": \"string\",\n  \"publicacao\": \"string\",\n  \"editora\": \"string\",\n  \"imagem\": \"string\"\n}"
       }
     },
     {
@@ -186,7 +186,7 @@
     {
       "_id": "fld_Emprestimos",
       "_type": "request_group",
-      "parentId": "fld_bibliosesi",
+      "parentId": "fld_Backend_Bibliosesi",
       "name": "Emprestimos"
     },
     {
@@ -232,7 +232,7 @@
       "url": "http://localhost:3000/emprestimos/cadastrar",
       "body": {
         "mimeType": "application/json",
-        "text": "{\n  \"data_emprestimo\": \"2026-03-25T12:39:38.884Z\",\n  \"data_devolucao\": \"2026-03-25T12:39:38.884Z\",\n  \"usuarioId\": 0,\n  \"livroId\": 0\n}"
+        "text": "{\n  \"data_emprestimo\": \"2026-09-12T02:28:34.535Z\",\n  \"data_devolucao\": \"2026-09-12T02:28:34.536Z\",\n  \"usuarioId\": 0,\n  \"livroId\": 0\n}"
       }
     },
     {
@@ -250,7 +250,7 @@
       "url": "http://localhost:3000/emprestimos/atualizar/:id",
       "body": {
         "mimeType": "application/json",
-        "text": "{\n  \"data_emprestimo\": \"2026-03-25T12:39:38.884Z\",\n  \"data_devolucao\": \"2026-03-25T12:39:38.884Z\",\n  \"usuarioId\": 0,\n  \"livroId\": 0\n}"
+        "text": "{\n  \"data_emprestimo\": \"2026-09-12T02:28:34.535Z\",\n  \"data_devolucao\": \"2026-09-12T02:28:34.536Z\",\n  \"usuarioId\": 0,\n  \"livroId\": 0\n}"
       }
     },
     {
@@ -270,7 +270,7 @@
     {
       "_id": "fld_Fila",
       "_type": "request_group",
-      "parentId": "fld_bibliosesi",
+      "parentId": "fld_Backend_Bibliosesi",
       "name": "Fila"
     },
     {
@@ -354,7 +354,7 @@
     {
       "_id": "fld_Feedbacks",
       "_type": "request_group",
-      "parentId": "fld_bibliosesi",
+      "parentId": "fld_Backend_Bibliosesi",
       "name": "Feedbacks"
     },
     {
@@ -400,7 +400,7 @@
       "url": "http://localhost:3000/feedbacks/cadastrar",
       "body": {
         "mimeType": "application/json",
-        "text": "{\n  \"comentario\": \"string\",\n  \"data\": \"2026-03-25T12:39:38.884Z\",\n  \"usuarioId\": 0,\n  \"livroId\": 0\n}"
+        "text": "{\n  \"comentario\": \"string\",\n  \"data\": \"2026-09-12T02:28:34.536Z\",\n  \"usuarioId\": 0,\n  \"livroId\": 0\n}"
       }
     },
     {
@@ -418,7 +418,7 @@
       "url": "http://localhost:3000/feedbacks/atualizar/:id",
       "body": {
         "mimeType": "application/json",
-        "text": "{\n  \"comentario\": \"string\",\n  \"data\": \"2026-03-25T12:39:38.884Z\",\n  \"usuarioId\": 0,\n  \"livroId\": 0\n}"
+        "text": "{\n  \"comentario\": \"string\",\n  \"data\": \"2026-09-12T02:28:34.536Z\",\n  \"usuarioId\": 0,\n  \"livroId\": 0\n}"
       }
     },
     {
@@ -438,7 +438,7 @@
     {
       "_id": "fld_Noticias",
       "_type": "request_group",
-      "parentId": "fld_bibliosesi",
+      "parentId": "fld_Backend_Bibliosesi",
       "name": "Noticias"
     },
     {
@@ -484,7 +484,7 @@
       "url": "http://localhost:3000/noticias/cadastrar",
       "body": {
         "mimeType": "application/json",
-        "text": "{\n  \"titulo\": \"string\",\n  \"autor\": \"string\",\n  \"conteudo\": \"string\",\n  \"categoria\": \"string\",\n  \"data\": \"2026-03-25T12:39:38.884Z\"\n}"
+        "text": "{\n  \"titulo\": \"string\",\n  \"autor\": \"string\",\n  \"conteudo\": \"string\",\n  \"categoria\": \"string\",\n  \"data\": \"2026-09-12T02:28:34.537Z\"\n}"
       }
     },
     {
@@ -502,7 +502,7 @@
       "url": "http://localhost:3000/noticias/atualizar/:id",
       "body": {
         "mimeType": "application/json",
-        "text": "{\n  \"titulo\": \"string\",\n  \"autor\": \"string\",\n  \"conteudo\": \"string\",\n  \"categoria\": \"string\",\n  \"data\": \"2026-03-25T12:39:38.884Z\"\n}"
+        "text": "{\n  \"titulo\": \"string\",\n  \"autor\": \"string\",\n  \"conteudo\": \"string\",\n  \"categoria\": \"string\",\n  \"data\": \"2026-09-12T02:28:34.537Z\"\n}"
       }
     },
     {
@@ -518,6 +518,90 @@
       "name": "Excluir",
       "method": "DELETE",
       "url": "http://localhost:3000/noticias/excluir/:id"
+    },
+    {
+      "_id": "fld_Sesi",
+      "_type": "request_group",
+      "parentId": "fld_Backend_Bibliosesi",
+      "name": "Sesi"
+    },
+    {
+      "_id": "req_Sesi_GET_ALL",
+      "_type": "request",
+      "parentId": "fld_Sesi",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "name": "Listar",
+      "method": "GET",
+      "url": "http://localhost:3000/sesi/listar"
+    },
+    {
+      "_id": "req_Sesi_GET_ID",
+      "_type": "request",
+      "parentId": "fld_Sesi",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "name": "Buscar",
+      "method": "GET",
+      "url": "http://localhost:3000/sesi/buscar/:id"
+    },
+    {
+      "_id": "req_Sesi_POST",
+      "_type": "request",
+      "parentId": "fld_Sesi",
+      "name": "Cadastrar",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "method": "POST",
+      "url": "http://localhost:3000/sesi/cadastrar",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"nome\": \"string\",\n  \"unidade\": 0,\n  \"email\": \"string\",\n  \"cep\": \"string\"\n}"
+      }
+    },
+    {
+      "_id": "req_Sesi_PUT",
+      "_type": "request",
+      "parentId": "fld_Sesi",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "name": "Atualizar",
+      "method": "PUT",
+      "url": "http://localhost:3000/sesi/atualizar/:id",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"nome\": \"string\",\n  \"unidade\": 0,\n  \"email\": \"string\",\n  \"cep\": \"string\"\n}"
+      }
+    },
+    {
+      "_id": "req_Sesi_DELETE",
+      "_type": "request",
+      "parentId": "fld_Sesi",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "name": "Excluir",
+      "method": "DELETE",
+      "url": "http://localhost:3000/sesi/excluir/:id"
     }
   ]
 }

@@ -10,7 +10,9 @@ const cadastrar = async (req, res) => {
         data
     });
 
-    res.json(item).status(201).end();
+    const { senha, ...usuario } = item;
+
+    res.json(usuario).status(201).end();
 };
 
 const listar = async (req, res) => {
