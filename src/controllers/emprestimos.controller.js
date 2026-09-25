@@ -1,14 +1,8 @@
-const prisma = require("../database/prisma");
+const prisma = require("../data/prisma");
 
-// cadastra emprestimo
 const cadastrar = async (req, res) => {
     try {
-        const {
-            usuarioId,
-            livroId,
-            data_emprestimo,
-            data_devolucao
-        } = req.body;
+        const {usuarioId, livroId, data_emprestimo, data_devolucao} = req.body;
         if (!usuarioId || !livroId || !data_emprestimo || !data_devolucao) {
             return res.status(400).json({
                 mensagem: "Todos os campos são obrigatórios."
@@ -92,7 +86,6 @@ const listar = async (req, res) => {
     }
 };
 
-// buscar emprestimo
 const buscar = async (req, res) => {
     try {
         const id = Number(req.params.id);
@@ -125,7 +118,6 @@ const buscar = async (req, res) => {
     }
 };
 
-// atualizar emprestimo
 const atualizar = async (req, res) => {
     try {
         const id = Number(req.params.id);
@@ -167,7 +159,6 @@ const atualizar = async (req, res) => {
     }
 };
 
-// excluir emprestimo
 const excluir = async (req, res) => {
     try {
         const id = Number(req.params.id);
