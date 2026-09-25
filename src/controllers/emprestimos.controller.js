@@ -2,7 +2,7 @@ const prisma = require("../data/prisma");
 
 const cadastrar = async (req, res) => {
     try {
-        const {usuarioId, livroId, data_emprestimo, data_devolucao} = req.body;
+        const { usuarioId, livroId, data_emprestimo, data_devolucao } = req.body;
         if (!usuarioId || !livroId || !data_emprestimo || !data_devolucao) {
             return res.status(400).json({
                 mensagem: "Todos os campos são obrigatórios."
@@ -184,9 +184,45 @@ const excluir = async (req, res) => {
     }
 };
 
+const listarPorUsuario = async (req, res) => {
+    try {
+        const usuarioId = Number(req.params.usuarioId);
+
+        if (!usuarioId) {
+            return res.status(400).json({
+                mensagem: "ID do usuário inválido."
+            });
+        }
+
+        const emprestimos = await prisma.emprestimos.findMany({
+            where: {
+                usuarioId: usuarioId
+            },
+            include: {
+                livro: true,
+                usuario: true
+            },
+            orderBy: {
+                id: "desc"
+            }
+        });
+
+        return res.status(200).json(emprestimos);
+
+    } catch (error) {
+        console.error("Erro ao listar empréstimos do usuário:", error);
+
+        return res.status(500).json({
+            mensagem: "Erro ao listar empréstimos.",
+            erro: error.message
+        });
+    }
+};
+
 module.exports = {
     cadastrar,
     listar,
+    listarPorUsuario,
     buscar,
     atualizar,
     excluir
