@@ -3,13 +3,18 @@ const prisma = require("../data/prisma");
 const cadastrar = async (req, res) => {
     try {
         const data = req.body;
+
         console.log(data);
+
         const item = await prisma.livros.create({
             data
         });
+
         return res.status(201).json(item);
+
     } catch (error) {
         console.error(error);
+
         return res.status(500).json({
             mensagem: "Erro ao cadastrar livro"
         });
@@ -23,9 +28,12 @@ const listar = async (req, res) => {
                 emprestimos: true
             }
         });
+
         return res.status(200).json(lista);
+
     } catch (error) {
         console.error(error);
+
         return res.status(500).json({
             mensagem: "Erro ao listar livros"
         });
@@ -35,6 +43,7 @@ const listar = async (req, res) => {
 const buscar = async (req, res) => {
     try {
         const { id } = req.params;
+
         const item = await prisma.livros.findUnique({
             where: {
                 id: Number(id)
@@ -43,14 +52,18 @@ const buscar = async (req, res) => {
                 emprestimos: true
             }
         });
+
         if (!item) {
             return res.status(404).json({
                 mensagem: "Livro não encontrado"
             });
         }
+
         return res.status(200).json(item);
+
     } catch (error) {
         console.error(error);
+
         return res.status(500).json({
             mensagem: "Erro ao buscar livro"
         });
@@ -61,15 +74,19 @@ const atualizar = async (req, res) => {
     try {
         const { id } = req.params;
         const dados = req.body;
+
         const item = await prisma.livros.update({
             where: {
                 id: Number(id)
             },
             data: dados
         });
+
         return res.status(200).json(item);
+
     } catch (error) {
         console.error(error);
+
         return res.status(500).json({
             mensagem: "Erro ao atualizar livro"
         });
@@ -79,16 +96,46 @@ const atualizar = async (req, res) => {
 const excluir = async (req, res) => {
     try {
         const { id } = req.params;
-        const item = await prisma.livros.delete({
+        const idLivro = Number(id);
+
+        if (!idLivro) {
+            return res.status(400).json({
+                mensagem: "ID do livro inválido"
+            });
+        }
+
+        const livro = await prisma.livros.findUnique({
             where: {
-                id: Number(id)
+                id: idLivro
             }
         });
+
+        if (!livro) {
+            return res.status(404).json({
+                mensagem: "Livro não encontrado"
+            });
+        }
+
+        await prisma.emprestimos.deleteMany({
+            where: {
+                livroId: idLivro
+            }
+        });
+
+        const item = await prisma.livros.delete({
+            where: {
+                id: idLivro
+            }
+        });
+
         return res.status(200).json(item);
+
     } catch (error) {
-        console.error(error);
+        console.error("Erro ao excluir livro:", error);
+
         return res.status(500).json({
-            mensagem: "Erro ao excluir livro"
+            mensagem: "Erro ao excluir livro",
+            erro: error.message
         });
     }
 };
