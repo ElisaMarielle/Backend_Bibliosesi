@@ -30,7 +30,6 @@ const buscar = async (req, res) => {
         where: { id: Number(id) },
         select: {
             id: true, nome: true, email: true, rm: true, funcao: true,
-            fotoPerfil: true
         }
     });
 
