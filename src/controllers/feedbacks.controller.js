@@ -45,8 +45,7 @@ const cadastrar = async (req, res) => {
                 usuario: {
                     select: {
                         id: true,
-                        nome: true,
-                        fotoPerfil: true
+                        nome: true
                     }
                 }
             }
@@ -85,8 +84,7 @@ const listar = async (req, res) => {
                 usuario: {
                     select: {
                         id: true,
-                        nome: true,
-                        fotoPerfil: true
+                        nome: true
                     }
                 }
             },
@@ -116,8 +114,7 @@ const buscar = async (req, res) => {
                 usuario: {
                     select: {
                         id: true,
-                        nome: true,
-                        fotoPerfil: true
+                        nome: true
                     }
                 }
             }
