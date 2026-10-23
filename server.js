@@ -26,7 +26,7 @@ const emprestimosRoutes = require('./src/routes/emprestimos.routes');
 app.use('/emprestimos', verificarAutenticacao, emprestimosRoutes);
 
 const livrosRoutes = require('./src/routes/livros.routes');
-app.use('/livros', verificarAutenticacao, livrosRoutes);
+app.use('/livros', livrosRoutes);
 
 const usuariosRoutes = require('./src/routes/usuarios.routes');
 app.use('/usuarios', usuariosRoutes);
