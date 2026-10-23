@@ -8,29 +8,32 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+const { verificarAutenticacao } = require('./src/middleware/auth');
+
 const sesiRoutes = require('./src/routes/sesi.routes');
-app.use('/sesi', sesiRoutes);
+app.use('/sesi', verificarAutenticacao, sesiRoutes);
 
 const noticiasRoutes = require('./src/routes/noticias.routes');
-app.use('/noticias', noticiasRoutes);
+app.use('/noticias', verificarAutenticacao, noticiasRoutes);
 
 const feedbacksRoutes = require('./src/routes/feedbacks.routes');
-app.use('/feedbacks', feedbacksRoutes);
+app.use('/feedbacks', verificarAutenticacao, feedbacksRoutes);
 
 const filaRoutes = require('./src/routes/fila.routes');
-app.use('/fila', filaRoutes);
+app.use('/fila', verificarAutenticacao, filaRoutes);
 
 const emprestimosRoutes = require('./src/routes/emprestimos.routes');
-app.use('/emprestimos', emprestimosRoutes);
+app.use('/emprestimos', verificarAutenticacao, emprestimosRoutes);
 
 const livrosRoutes = require('./src/routes/livros.routes');
-app.use('/livros', livrosRoutes);
+app.use('/livros', verificarAutenticacao, livrosRoutes);
 
 const usuariosRoutes = require('./src/routes/usuarios.routes');
 app.use('/usuarios', usuariosRoutes);
 
 const authRoutes = require('./src/middleware/auth');
 app.use('/auth', authRoutes);
+
 
 app.use("/", (req, res) => {
     res.status(200).json({ message: "API funcionando!" });

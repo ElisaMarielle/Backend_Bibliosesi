@@ -17,7 +17,7 @@ const cadastrar = async (req, res) => {
 
 const listar = async (req, res) => {
     const lista = await prisma.usuarios.findMany({
-        select: { id: true, nome: true, email: true, rm: true, funcao: true, fotoPerfil: true }
+        select: { id: true, nome: true, email: true, rm: true, funcao: true }
     });
 
     return res.status(200).json(lista);
@@ -29,7 +29,7 @@ const buscar = async (req, res) => {
     const item = await prisma.usuarios.findUnique({
         where: { id: Number(id) },
         select: {
-            id: true, nome: true, email: true, rm: true, funcao: true,
+            id: true, nome: true, email: true, rm: true, funcao: true
         }
     });
 
@@ -44,21 +44,20 @@ const atualizar = async (req, res) => {
             return res.status(400).json({ mensagem: "ID do usuário inválido." });
         }
 
-        const permitidos = ["nome", "email", "rm", "funcao", "fotoPerfil"];
+        const permitidos = ["nome", "email", "rm", "funcao"];
         const data = Object.fromEntries(
             Object.entries(req.body || {}).filter(([chave]) => permitidos.includes(chave))
         );
 
-        if (typeof data.fotoPerfil === "string" && data.fotoPerfil.length > 2_500_000) {
+        /*if (typeof data.fotoPerfil === "string" && data.fotoPerfil.length > 2_500_000) {
             return res.status(413).json({ mensagem: "A foto é muito grande. Escolha uma imagem menor." });
-        }
+        }*/
 
         const item = await prisma.usuarios.update({
             where: { id },
             data,
             select: {
-                id: true, nome: true, email: true, rm: true, funcao: true,
-                fotoPerfil: true
+                id: true, nome: true, email: true, rm: true, funcao: true
             }
         });
 
