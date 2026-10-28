@@ -14,16 +14,16 @@ const sesiRoutes = require('./src/routes/sesi.routes');
 app.use('/sesi', verificarAutenticacao, sesiRoutes);
 
 const noticiasRoutes = require('./src/routes/noticias.routes');
-app.use('/noticias', verificarAutenticacao, noticiasRoutes);
+app.use('/noticias', noticiasRoutes);
 
 const feedbacksRoutes = require('./src/routes/feedbacks.routes');
-app.use('/feedbacks', verificarAutenticacao, feedbacksRoutes);
+app.use('/feedbacks', feedbacksRoutes);
 
 const filaRoutes = require('./src/routes/fila.routes');
 app.use('/fila', verificarAutenticacao, filaRoutes);
 
 const emprestimosRoutes = require('./src/routes/emprestimos.routes');
-app.use('/emprestimos', verificarAutenticacao, emprestimosRoutes);
+app.use('/emprestimos', emprestimosRoutes);
 
 const livrosRoutes = require('./src/routes/livros.routes');
 app.use('/livros', livrosRoutes);
