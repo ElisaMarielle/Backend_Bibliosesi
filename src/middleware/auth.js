@@ -41,7 +41,7 @@ router.post('/login', async (req, res) => {
                 email: usuario.email,
                 funcao: usuario.funcao
             },
-            'key',
+            process.env.JWT_SECRET,
             {
                 expiresIn: '1h'
             }
@@ -97,4 +97,4 @@ function verificarAutenticacao(req, res, next) {
 
 
 module.exports = router;
-module.exports = verificarAutenticacao;
+module.exports.verificarAutenticacao = verificarAutenticacao;
