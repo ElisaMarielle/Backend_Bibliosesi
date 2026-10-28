@@ -23,11 +23,7 @@ const cadastrar = async (req, res) => {
 
 const listar = async (req, res) => {
     try {
-        const lista = await prisma.livros.findMany({
-            include: {
-                emprestimos: true
-            }
-        });
+        const lista = await prisma.livros.findMany();
 
         return res.status(200).json(lista);
 
