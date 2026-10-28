@@ -11,7 +11,7 @@ app.use(cors());
 const { verificarAutenticacao } = require('./src/middleware/auth');
 
 const sesiRoutes = require('./src/routes/sesi.routes');
-app.use('/sesi', verificarAutenticacao, sesiRoutes);
+app.use('/sesi', sesiRoutes);
 
 const noticiasRoutes = require('./src/routes/noticias.routes');
 app.use('/noticias', noticiasRoutes);
@@ -20,7 +20,7 @@ const feedbacksRoutes = require('./src/routes/feedbacks.routes');
 app.use('/feedbacks', feedbacksRoutes);
 
 const filaRoutes = require('./src/routes/fila.routes');
-app.use('/fila', verificarAutenticacao, filaRoutes);
+app.use('/fila', filaRoutes);
 
 const emprestimosRoutes = require('./src/routes/emprestimos.routes');
 app.use('/emprestimos', emprestimosRoutes);
@@ -43,3 +43,5 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
+
+//Algo novo que para subir na Vercel
