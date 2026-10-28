@@ -8,7 +8,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-const { verificarAutenticacao } = require('./src/middleware/auth');
+const { verificarAutenticacao } = require('./src/middleware/auth')
 
 const sesiRoutes = require('./src/routes/sesi.routes');
 const noticiasRoutes = require('./src/routes/noticias.routes');
