@@ -17,7 +17,7 @@ const filaRoutes = require('./src/routes/fila.routes');
 const emprestimosRoutes = require('./src/routes/emprestimos.routes');
 const livrosRoutes = require('./src/routes/livros.routes');
 const usuariosRoutes = require('./src/routes/usuarios.routes');
-app.use('/usuarios', usuariosRoutes);
+app.use('/usuarios', verificarAutenticacao, usuariosRoutes);
 app.use('/sesi', verificarAutenticacao, sesiRoutes);
 app.use('/noticias', verificarAutenticacao, noticiasRoutes);
 app.use('/feedbacks', verificarAutenticacao, feedbacksRoutes);
