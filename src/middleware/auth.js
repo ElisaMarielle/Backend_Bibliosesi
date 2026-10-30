@@ -95,6 +95,14 @@ function verificarAutenticacao(req, res, next) {
     });
 }
 
+function apenasAdm(req, res, next) {
+    if (!req.usuario || req.usuario.funcao !== "ADM")
+        return res.status(403).json({ mensagem: "Acesso exclusivo para administradores." });
+    return next();
+}
 
+module.exports = {
+    verificarAutenticacao,
+    apenasAdm
+}
 module.exports = router;
-module.exports.verificarAutenticacao = verificarAutenticacao;

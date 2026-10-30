@@ -44,7 +44,12 @@ const atualizar = async (req, res) => {
             return res.status(400).json({ mensagem: "ID do usuário inválido." });
         }
 
-        const permitidos = ["nome", "email", "rm", "funcao"];
+        if (req.usuario.funcao !== "ADM" && req.usuario.id !== id) {
+            return res.status(403).json({ mensagem: "Acesso não autorizado." });
+        }
+        const permitidos = req.usuario.funcao === "ADM"
+            ? ["nome", "email", "rm", "funcao"]
+            : ["rm"];
         const data = Object.fromEntries(
             Object.entries(req.body || {}).filter(([chave]) => permitidos.includes(chave))
         );

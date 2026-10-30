@@ -37,6 +37,7 @@ model Emprestimos {
   id              Int      @id @default(autoincrement())
   data_emprestimo DateTime
   data_devolucao  DateTime
+  devolvido Boolean @default(false)
   usuario         Usuarios @relation(fields: [usuarioId], references: [id])
   usuarioId       Int
   livro           Livros   @relation(fields: [livroId], references: [id])
