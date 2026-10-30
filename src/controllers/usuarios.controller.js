@@ -2,17 +2,18 @@ const prisma = require("../data/prisma");
 const bcrypt = require('bcrypt');
 
 const cadastrar = async (req, res) => {
-    const data = req.body;
+    try {
+        const data = req.body;
+        data.senha = await bcrypt.hash(data.senha, 10);
 
-    data.senha = await bcrypt.hash(data.senha, 10);
+        const item = await prisma.usuarios.create({ data });
+        const { senha, ...usuario } = item;
 
-    const item = await prisma.usuarios.create({
-        data
-    });
-
-    const { senha, ...usuario } = item;
-
-    res.json(usuario).status(201).end();
+        res.status(201).json(usuario);
+    } catch (err) {
+        console.error(err);
+        res.status(400).json({ erro: 'Não foi possível cadastrar o usuário' });
+    }
 };
 
 const listar = async (req, res) => {
