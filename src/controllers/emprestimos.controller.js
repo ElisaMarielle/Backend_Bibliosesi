@@ -241,8 +241,8 @@ const listarPorUsuario = async (req, res) => {
         const usuarioId = Number(req.params.usuarioId);
         if (!usuarioId) return res.status(400).json({ mensagem: "ID do usuário inválido." });
 
-        if (req.usuario.funcao !== "ADM" && req.usuario.id !== usuarioId)
-            return res.status(403).json({ mensagem: "Acesso não autorizado." });
+        // if (req.usuario.funcao !== "ADM" && req.usuario.id !== usuarioId)
+        //     return res.status(403).json({ mensagem: "Acesso não autorizado." });
 
         const emprestimos = await prisma.emprestimos.findMany({
             where: { usuarioId },
