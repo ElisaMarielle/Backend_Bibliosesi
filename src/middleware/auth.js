@@ -43,7 +43,7 @@ router.post('/login', async (req, res) => {
             },
             process.env.JWT_SECRET,
             {
-                expiresIn: '1h'
+                expiresIn: '1d'
             }
         );
 
@@ -101,8 +101,6 @@ function apenasAdm(req, res, next) {
     return next();
 }
 
-module.exports = {
-    verificarAutenticacao,
-    apenasAdm
-}
 module.exports = router;
+module.exports.verificarAutenticacao = verificarAutenticacao;
+module.exports.apenasAdm = apenasAdm;
