@@ -2,20 +2,19 @@ const prisma = require("../data/prisma");
 const DIAS_PRAZO = 14;
 const incluir = { livro: true, usuario: { select: { id: true, nome: true, email: true, rm: true, funcao: true } } };
 
-/*const cadastrar = async (req, res) => {
+const cadastrar = async (req, res) => {
     try {
-        const { usuarioId, livroId, data_emprestimo, data_devolucao } = req.body;
+        const usuarioId = Number(req.body.usuarioId);
+        const livroId = Number(req.body.livroId);
 
-        if (!usuarioId || !livroId || !data_emprestimo || !data_devolucao) {
+        if (!usuarioId || !livroId) {
             return res.status(400).json({
-                mensagem: "Todos os campos são obrigatórios."
+                mensagem: "Usuário e livro são obrigatórios."
             });
         }
 
         const usuario = await prisma.usuarios.findUnique({
-            where: {
-                id: Number(usuarioId)
-            }
+            where: { id: usuarioId }
         });
 
         if (!usuario) {
@@ -25,9 +24,7 @@ const incluir = { livro: true, usuario: { select: { id: true, nome: true, email:
         }
 
         const livro = await prisma.livros.findUnique({
-            where: {
-                id: Number(livroId)
-            }
+            where: { id: livroId }
         });
 
         if (!livro) {
@@ -36,37 +33,22 @@ const incluir = { livro: true, usuario: { select: { id: true, nome: true, email:
             });
         }
 
-        const agora = new Date();
+        const inicio = new Date();
+        const prazo = new Date(inicio);
+        prazo.setDate(prazo.getDate() + DIAS_PRAZO);
 
-        const emprestimoAtivo = await prisma.emprestimos.findFirst({
-            where: {
-                livroId: Number(livroId),
-                data_devolucao: {
-                    gt: agora
-                }
-            }
-        });
-
-        if (emprestimoAtivo) {
-            return res.status(409).json({
-                mensagem: "Este livro já está emprestado."
-            });
-        }
-
-        const novoEmprestimo = await prisma.emprestimos.create({
+        const emprestimo = await prisma.emprestimos.create({
             data: {
-                usuarioId: Number(usuarioId),
-                livroId: Number(livroId),
-                data_emprestimo: new Date(data_emprestimo),
-                data_devolucao: new Date(data_devolucao)
+                usuarioId,
+                livroId,
+                data_emprestimo: inicio,
+                data_devolucao: prazo,
+                devolvido: false
             },
-            include: {
-                livro: true,
-                usuario: true
-            }
+            include: incluir
         });
 
-        return res.status(201).json(novoEmprestimo);
+        return res.status(201).json(emprestimo);
 
     } catch (error) {
         console.error("Erro ao cadastrar empréstimo:", error);
@@ -76,35 +58,7 @@ const incluir = { livro: true, usuario: { select: { id: true, nome: true, email:
             erro: error.message
         });
     }
-};*/
-
-const cadastrar = async (req, res) => {
-    try{
-        const usuarioId = Number(req.body.usuarioId);
-        const livroId = Number(req.body.livroId);
-        if (!usuarioId || !livroId) return res.status(400).json({ mensagem: "Usuário e livro são obrigatórios." });
-
-        const usuario = await prisma.usuarios.findUnique({ where: { id: usuarioId } });
-        if (!usuario) return res.status(404).json({ mensagem: "Usuário não encontrado." });
-        
-        const livro = await prisma.livros.findUnique({ where: { id: livroId } });
-        if (!livro) return res.status(404).json({ mensagem: "Livro não encontrado." });
-
-        const inicio = new Date();
-        const prazo = new Date(inicio);
-        prazo.setDate(prazo.getDate() + DIAS_PRAZO);
-
-        const emprestimo = await prisma.emprestimos.create({
-            data: { usuarioId, livroId, data_emprestimo: inicio, data_devolucao: prazo, devolvido: false },
-            include: incluir
-        });
-        return res.status(201).json(emprestimo);
-    }catch{
-        console.error("Erro ao cadastrar empréstimo:", error);
-
-        return res.status(500).json({ mensagem: "Erro ao cadastrar empréstimo.", erro: error.message });
-    }
-}
+};
 
 
 // LISTAR TODOS OS EMPRÉSTIMOS
@@ -239,20 +193,43 @@ const excluir = async (req, res) => {
 const listarPorUsuario = async (req, res) => {
     try {
         const usuarioId = Number(req.params.usuarioId);
-        if (!usuarioId) return res.status(400).json({ mensagem: "ID do usuário inválido." });
 
-        // if (req.usuario.funcao !== "ADM" && req.usuario.id !== usuarioId)
-        //     return res.status(403).json({ mensagem: "Acesso não autorizado." });
+        if (!Number.isInteger(usuarioId) || usuarioId <= 0) {
+            return res.status(400).json({
+                mensagem: "ID do usuário inválido."
+            });
+        }
 
         const emprestimos = await prisma.emprestimos.findMany({
-            where: { usuarioId },
-            include: incluir,
-            orderBy: { data_emprestimo: "desc" }
+            where: {
+                usuarioId: usuarioId
+            },
+            include: {
+                livro: true,
+                usuario: {
+                    select: {
+                        id: true,
+                        nome: true,
+                        email: true,
+                        rm: true,
+                        funcao: true
+                    }
+                }
+            },
+            orderBy: {
+                data_emprestimo: "desc"
+            }
         });
+
         return res.status(200).json(emprestimos);
+
     } catch (error) {
-        console.error(error);
-        return res.status(500).json({ mensagem: "Erro ao listar empréstimos." });
+        console.error("Erro ao listar empréstimos do usuário:", error);
+
+        return res.status(500).json({
+            mensagem: "Erro ao listar empréstimos.",
+            erro: error.message
+        });
     }
 };
 
