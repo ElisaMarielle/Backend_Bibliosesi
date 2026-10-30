@@ -78,7 +78,7 @@ const incluir = { livro: true, usuario: { select: { id: true, nome: true, email:
     }
 };*/
 
-const cadastrar = async (res, res) => {
+const cadastrar = async (req, res) => {
     try{
         const usuarioId = Number(req.body.usuarioId);
         const livroId = Number(req.body.livroId);
