@@ -65,10 +65,7 @@ const cadastrar = async (req, res) => {
 const listar = async (req, res) => {
     try {
         const emprestimos = await prisma.emprestimos.findMany({
-            include: {
-                livro: true,
-                usuario: true
-            },
+            include: incluir,
             orderBy: {
                 data_emprestimo: "desc"
             }
@@ -100,10 +97,7 @@ const buscar = async (req, res) => {
             where: {
                 id: id
             },
-            include: {
-                livro: true,
-                usuario: true
-            }
+            include: incluir
         });
 
         if (!emprestimo) {

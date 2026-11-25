@@ -75,13 +75,28 @@ const atualizar = async (req, res) => {
 };
 
 const excluir = async (req, res) => {
-    const { id } = req.params;
-    
-    const item = await prisma.usuarios.delete({
-        where: { id : Number(id) }
-    });
+    try {
+        const id = Number(req.params.id);
 
-    res.json(item).status(200).end();
+        const ativos = await prisma.emprestimos.count({
+            where: { usuarioId: id, devolvido: false }
+        });
+        if (ativos > 0) {
+            return res.status(400).json({ mensagem: "Este usuário ainda tem livros emprestados. Marque como entregue antes de excluir." });
+        }
+
+        await prisma.$transaction([
+            prisma.feedbacks.deleteMany({ where: { usuarioId: id } }),
+            prisma.fila.deleteMany({ where: { usuarioId: id } }),
+            prisma.emprestimos.deleteMany({ where: { usuarioId: id } }),
+            prisma.usuarios.delete({ where: { id: id } })
+        ]);
+
+        return res.status(200).json({ mensagem: "Usuário excluído." });
+    } catch (erro) {
+        console.error(erro);
+        return res.status(500).json({ mensagem: "Erro ao excluir usuário." });
+    }
 };
 
 module.exports = {
